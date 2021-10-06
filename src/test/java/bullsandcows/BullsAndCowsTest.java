@@ -49,15 +49,33 @@ class BullsAndCowsTest {
     @Test
     @DisplayName(value = "자릿수가 일치하면 strike, 값을 포함하면 ball 반환")
     void getResult() {
+        List<Integer> rnd = getCustomRnd(); // 342
+        String input = "241";
+
+        Map<String, Integer> result = bullsAndCows.getResult(rnd, input);
+
+        assertThat(result).extracting("ball").isEqualTo(1);
+        assertThat(result).extracting("strike").isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName(value = "컴퓨터가 선택한 3개의 숫자를 모두 맞히면 게임이 종료된다.")
+    void isSuccess() {
+        List<Integer> rnd = getCustomRnd();
+        String input = "342";
+        Map<String, Integer> result = bullsAndCows.getResult(rnd, input);
+
+        boolean success = bullsAndCows.isSuccess(result);
+
+        assertThat(success).isTrue();
+    }
+
+    List<Integer> getCustomRnd() {
         List<Integer> rnd = new ArrayList<>();
         rnd.add(3);
         rnd.add(4);
         rnd.add(2);
 
-        String input = "241";
-        Map<String, Integer> result = bullsAndCows.getResult(rnd, input);
-
-        assertThat(result).extracting("ball").isEqualTo(1);
-        assertThat(result).extracting("strike").isEqualTo(1);
+        return rnd;
     }
 }

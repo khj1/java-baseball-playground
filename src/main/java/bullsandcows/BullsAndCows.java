@@ -1,5 +1,7 @@
 package bullsandcows;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class BullsAndCows {
@@ -65,4 +67,59 @@ public class BullsAndCows {
         return 0;
     }
 
+    public boolean isSuccess(Map<String, Integer> result) {
+        return result.get("strike") == 3;
+    }
+
+    public void start() throws Exception {
+        boolean status = false;
+        List<Integer> rnd = getRnd();
+
+        while (!status) {
+            System.out.print("숫자를 입력해 주세요 : ");
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String input = br.readLine();
+
+            Map<String, Integer> result = getResult(rnd, input);
+            getResultString(result);
+
+            status = isSuccess(result);
+        }
+    }
+
+    private void getResultString(Map<String, Integer> result) {
+        Integer ball = result.get("ball");
+        Integer strike = result.get("strike");
+
+        if (ball == 0 && strike == 0) {
+            System.out.println("낫싱");
+        }
+        if (ball == 0 && strike != 0) {
+            System.out.println(strike + "스트라이크");
+        }
+        if (ball != 0 && strike == 0) {
+            System.out.println(ball + "볼");
+        }
+        if (ball != 0 && strike != 0) {
+            System.out.println(ball + "볼 " + strike + "스트라이크 ");
+        }
+        if (strike == 3) {
+            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        }
+    }
+
+    public boolean checkRegame() throws Exception{
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        return Integer.parseInt(br.readLine()) == 1;
+    }
+
+    public void init() throws Exception{
+        boolean status = true;
+        while (status) {
+            start();
+            status = checkRegame();
+        }
+    }
 }
