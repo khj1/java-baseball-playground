@@ -18,17 +18,18 @@ public class StringCalculator {
     }
 
     private int classify(String operator, int a, int b) {
-        switch (operator) {
-            case "+":
-                return a+b;
-            case "-":
-                return a-b;
-            case "*":
-                return a*b;
-            case "/":
-                return a/b;
-            default:
-                throw new IllegalArgumentException();
+        if (operator.equals("+")) {
+            return a + b;
         }
+        if (operator.equals("-")) {
+            return a - b;
+        }
+        if (operator.equals("*")) {
+            return a * b;
+        }
+        if (operator.equals("/")) {
+            return a / b;
+        }
+        throw new IllegalArgumentException("부적절한 연산자를 사용했습니다.");
     }
 }
