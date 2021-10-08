@@ -38,4 +38,11 @@ public class BallsTest {
         Balls player = new Balls(Arrays.asList(4, 5, 6));
         assertThat(com.play(player)).isEqualTo(new PlayResult(0, 0));
     }
+
+    @Test
+    @DisplayName("3개의 숫자를 모두 맞추면 게임이 종료된다.")
+    void isEnd_test() {
+        Balls player = new Balls(Arrays.asList(1, 2, 3));
+        assertThat(com.play(player).isEnd()).isTrue();
+    }
 }

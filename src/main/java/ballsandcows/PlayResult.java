@@ -11,6 +11,10 @@ public class PlayResult {
         this.strike = strike;
     }
 
+    public boolean isEnd() {
+        return this.strike == 3;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
