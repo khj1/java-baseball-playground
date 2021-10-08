@@ -19,24 +19,26 @@ public class BallsTest {
     }
 
     @Test
-    @DisplayName("컴퓨터 숫자 3개와 사용자 숫자 3개 비교_1strike")
+    @DisplayName("컴퓨터 숫자 3개와 사용자 숫자 3개 비교_2strike")
     void strike_1_test() {
         Balls player = new Balls(Arrays.asList(1, 2, 4));
-        assertThat(com.play(player)).isEqualTo(new PlayResult(0, 2));
+        assertThat(com.play(player).getStrike()).isEqualTo(2);
+        assertThat(com.play(player).isBallEmpty()).isTrue();
     }
 
     @Test
     @DisplayName("컴퓨터 숫자 3개와 사용자 숫자 3개 비교_1ball_1strike")
     void ball_1_strike_1_test() {
         Balls player = new Balls(Arrays.asList(2, 4, 3));
-        assertThat(com.play(player)).isEqualTo(new PlayResult(1, 1));
+        assertThat(com.play(player).getStrike()).isEqualTo(1);
+        assertThat(com.play(player).getBall()).isEqualTo(1);
     }
 
     @Test
     @DisplayName("컴퓨터 숫자 3개와 사용자 숫자 3개 비교_nothing")
     void nothing_test() {
         Balls player = new Balls(Arrays.asList(4, 5, 6));
-        assertThat(com.play(player)).isEqualTo(new PlayResult(0, 0));
+        assertThat(com.play(player).isNothing()).isTrue();
     }
 
     @Test

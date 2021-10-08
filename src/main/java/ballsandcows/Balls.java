@@ -19,13 +19,21 @@ public class Balls {
     }
 
     public PlayResult play(Balls balls) {
-        long strike = 0;
-        long ball = 0;
+        PlayResult result = new PlayResult();
+
         for (BallNumber ballNumber : ballNumbers) {
-            strike += strikeCount(balls, ballNumber);
-            ball += ballCount(balls, ballNumber);
+            BallStatus ballStatus = balls.play(ballNumber);
+            result.report(ballStatus);
         }
-        return new PlayResult(ball, strike);
+        return result;
+    }
+
+    private BallStatus play(BallNumber ballNumber) {
+        return ballNumbers.stream()
+                .map(b -> b.match(ballNumber))
+                .filter(BallStatus::isNotNothing)
+                .findFirst()
+                .orElse(BallStatus.NOTHING);
     }
 
     public static Balls getRandomBalls() {
@@ -42,14 +50,6 @@ public class Balls {
         if (!rndBallNumbers.contains(rndBall)) {
             rndBallNumbers.add(rndBall);
         }
-    }
-
-    private boolean isBall(BallStatus ballStatus) {
-        return ballStatus == BallStatus.BALL;
-    }
-
-    private boolean isStrike(BallStatus ballStatus) {
-        return ballStatus == BallStatus.STRIKE;
     }
 
     void validationCheck(List<Integer> ballNumbers) {
@@ -78,19 +78,5 @@ public class Balls {
         return ballNumbers.stream()
                 .map(integer -> new BallNumber(index.getAndIncrement(), integer))
                 .collect(Collectors.toList());
-    }
-
-    private long strikeCount(Balls balls, BallNumber ballNumber) {
-        return balls.getBallNumbers().stream()
-                .map(ball -> ball.match(ballNumber))
-                .filter(this::isStrike)
-                .count();
-    }
-
-    private long ballCount(Balls balls, BallNumber ballNumber) {
-        return balls.getBallNumbers().stream()
-                .map(ball -> ball.match(ballNumber))
-                .filter(this::isBall)
-                .count();
     }
 }

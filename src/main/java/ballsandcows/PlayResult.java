@@ -3,12 +3,16 @@ package ballsandcows;
 import java.util.Objects;
 
 public class PlayResult {
-    private final long ball;
-    private final long strike;
+    private int ball = 0;
+    private int strike = 0;
 
-    public PlayResult(long ball, long strike) {
-        this.ball = ball;
-        this.strike = strike;
+    public void report(BallStatus ballStatus) {
+        if (ballStatus.isStrike()) {
+            strike++;
+        }
+        if (ballStatus.isBall()) {
+            ball++;
+        }
     }
 
     public long getBall() {
