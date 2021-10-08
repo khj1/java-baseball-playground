@@ -11,6 +11,30 @@ public class PlayResult {
         this.strike = strike;
     }
 
+    public long getBall() {
+        return ball;
+    }
+
+    public long getStrike() {
+        return strike;
+    }
+
+    public boolean isBallEmpty() {
+        return ball == 0;
+    }
+
+    public boolean isStrikeEmpty() {
+        return strike == 0;
+    }
+
+    public boolean isNothing() {
+        return strike == 0 && ball == 0;
+    }
+
+    public boolean hasEveryElement() {
+        return strike > 0 && ball > 0;
+    }
+
     public boolean isEnd() {
         return this.strike == 3;
     }

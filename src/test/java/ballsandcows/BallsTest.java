@@ -45,4 +45,11 @@ public class BallsTest {
         Balls player = new Balls(Arrays.asList(1, 2, 3));
         assertThat(com.play(player).isEnd()).isTrue();
     }
+
+    @Test
+    @DisplayName("컴퓨터의 숫자는 임의로 결정된다.")
+    void computer_number_test() {
+        Balls balls = Balls.getRandomBalls();
+        assertThat(balls.getBallNumbers().size()).isEqualTo(3);
+    }
 }

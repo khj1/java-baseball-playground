@@ -7,6 +7,9 @@ public class BallNumber {
     private final int position;
 
     public BallNumber(int position, int value) {
+        if (isNonValidatedRange(value)) {
+            throw new IllegalArgumentException("1~9 사이의 숫자를 입력해주세요.");
+        }
         this.position = position;
         this.value = value;
     }
@@ -27,6 +30,10 @@ public class BallNumber {
             return BallStatus.BALL;
         }
         return BallStatus.NOTHING;
+    }
+
+    public boolean isNonValidatedRange(int i) {
+        return i <= BallNumberRange.MIN_NO.getValue() || i >= BallNumberRange.MAX_NO.getValue();
     }
 
     @Override
